@@ -240,4 +240,98 @@
   color: var(--text-medium);
   line-height: 1.6;
   font-size: var(--text-md);
+}
+
+/* Analysis Aspects Styles */
+.analysis-aspects {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.analysis-aspects h3 {
+  font-size: var(--text-lg);
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.aspect-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.aspect-item {
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+}
+
+.aspect-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.aspect-header {
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--primary-dark);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-normal);
+}
+
+.aspect-header:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.aspect-header.expanded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgba(var(--primary-rgb), 0.05);
+  border-color: rgba(var(--primary-rgb), 0.2);
+  font-weight: 600;
+}
+
+.aspect-name {
+  text-transform: capitalize;
+}
+
+.toggle-icon {
+  font-weight: bold;
+  font-size: var(--text-lg);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.aspect-content {
+  padding: var(--space-md);
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: none;
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-size: var(--text-md);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.aspect-content p {
+  margin: 0;
 } 

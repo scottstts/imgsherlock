@@ -1,6 +1,7 @@
 import ImageUploader from './components/ImageUploader'
 import ResultDisplay from './components/ResultDisplay'
 import useImageUpload from './hooks/useImageUpload'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -14,12 +15,38 @@ function App() {
     clearImage,
     clearError,
   } = useImageUpload()
+  
+  const [showScrollButton, setShowScrollButton] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button when user scrolls down 300px
+      setShowScrollButton(window.scrollY > 300)
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>ImgSherlock</h1>
-        <p className="app-subtitle">AI Image Detector</p>
+        <div className="logo-title">
+          <div className="logo-container">
+            <img src="/logo.svg" alt="ImgSherlock Logo" className="app-logo" />
+          </div>
+          <div className="title-container">
+            <h1>ImgSherlock</h1>
+            <p className="app-subtitle">AI Image Detector</p>
+          </div>
+        </div>
       </header>
 
       <main className="app-main">
@@ -38,13 +65,15 @@ function App() {
           />
           
           <div className="action-buttons">
-            <button 
-              className="detect-button" 
-              onClick={detectImage}
-              disabled={!preview || loading}
-            >
-              {loading ? 'Analyzing...' : 'Analyze Image'}
-            </button>
+            {!result && (
+              <button 
+                className="detect-button" 
+                onClick={detectImage}
+                disabled={!preview || loading}
+              >
+                {loading ? 'Analyzing...' : 'Analyze Image'}
+              </button>
+            )}
             
             {preview && (
               <button 
@@ -80,6 +109,16 @@ function App() {
       <footer className="app-footer">
         <p>Powered by Google Gemini</p>
       </footer>
+
+      {showScrollButton && (
+        <button 
+          className="scroll-to-top scroll-button-appear"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <span className="arrow-icon">↑</span>
+        </button>
+      )}
     </div>
   )
 }

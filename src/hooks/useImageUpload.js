@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import apiService from '../services/api';
-import mockApiService from '../services/mockApi';
 import config from '../config/env';
 import { validateImageFile } from '../utils/validation';
-
-// Get the appropriate API service based on config
-const service = config.useMockApi ? mockApiService : apiService;
 
 /**
  * Custom hook for handling image uploads and detection
@@ -61,7 +57,7 @@ const useImageUpload = () => {
     setError(null);
     
     try {
-      const detectionResult = await service.checkImage(image);
+      const detectionResult = await apiService.checkImage(image);
       setResult(detectionResult);
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'An error occurred during detection');

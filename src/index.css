@@ -9,6 +9,54 @@
   color: var(--text-dark, #37474f);
   background-color: var(--background-main, #fffaf7);
 
+  /* Theme Colors */
+  --primary-color: #ff7e5f;
+  --primary-light: #ff9e80;
+  --primary-dark: #ff6e4c;
+  --primary-rgb: 255, 126, 95;
+  
+  --secondary-color: #feb47b;
+  --secondary-light: #ffc491;
+  --secondary-dark: #fea56e;
+  
+  --success-color: #66bb6a;
+  --warning-color: #ffca28;
+  --error-color: #ff5252;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* Typography */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  
+  /* Borders */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -93,6 +141,7 @@ button:focus-visible {
     --primary-color: #ff9e80;
     --primary-light: #ffccbc;
     --primary-dark: #ff7e5f;
+    --primary-rgb: 255, 158, 128;
     --secondary-color: #ffd180;
     --secondary-light: #ffe0b2;
     --secondary-dark: #ffb74d;

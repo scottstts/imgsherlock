@@ -8,14 +8,14 @@ const ENV = import.meta.env.VITE_ENV || 'development';
 const config = {
   // API URL for each environment
   apiUrl: {
-    development: 'http://localhost:5000/api',
-    test: 'http://localhost:5000/api',
+    development: 'http://localhost:8000/api',
+    test: 'http://localhost:8000/api',
     production: '/api', // Relative URL for production (assumes API is on same domain)
   },
   
   // Feature flags
   features: {
-    useMockApi: ENV !== 'production', // Use mock API in dev/test, real API in production
+    useMockApi: false, // Always use real API
     enableDetailedLogs: ENV !== 'production',
     enablePerformanceMetrics: true,
   },
