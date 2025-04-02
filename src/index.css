@@ -1,0 +1,126 @@
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--text-dark, #37474f);
+  background-color: var(--background-main, #fffaf7);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color, #ff7e5f);
+  text-decoration: inherit;
+  transition: color var(--transition-fast, 150ms ease);
+}
+
+a:hover {
+  color: var(--primary-light, #ff9e80);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: var(--text-4xl, 2.25rem);
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--text-2xl, 1.5rem);
+  line-height: 1.2;
+  font-weight: 600;
+  margin: 0;
+}
+
+h3 {
+  font-size: var(--text-xl, 1.25rem);
+  line-height: 1.3;
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: var(--text-md, 1rem);
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--background-elevated, #ffffff);
+  cursor: pointer;
+  transition: all var(--transition-normal, 250ms ease);
+}
+
+button:hover {
+  border-color: var(--primary-light, #ff9e80);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--primary-light, #ff9e80);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-main: #251e1c;
+    --background-card: #352a26;
+    --background-elevated: #45342e;
+    --text-dark: #f5f5f5;
+    --text-medium: #d0d0d0;
+    --text-light: #a0a0a0;
+    --border-light: #5d4037;
+    --border-medium: #795548;
+    --primary-color: #ff9e80;
+    --primary-light: #ffccbc;
+    --primary-dark: #ff7e5f;
+    --secondary-color: #ffd180;
+    --secondary-light: #ffe0b2;
+    --secondary-dark: #ffb74d;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #4a2c2a, #5d4037, #614235, #794340);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+  }
+  
+  .app-main, 
+  .result-card, 
+  .result-container.loading,
+  .dropzone {
+    background-color: rgba(53, 42, 38, 0.9);
+    border-color: rgba(93, 64, 55, 0.5);
+  }
+  
+  a {
+    color: var(--primary-light, #ffccbc);
+  }
+  
+  a:hover {
+    color: var(--secondary-light, #ffe0b2);
+  }
+  
+  button {
+    background-color: var(--background-elevated, #45342e);
+  }
+}
