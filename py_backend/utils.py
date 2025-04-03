@@ -16,6 +16,7 @@ def extract_json_content(text):
         return text
         
     # Pattern to match ```json ... ``` with any content in between
+    text = text.strip()
     pattern = r'```json\s*([\s\S]*?)\s*```'
     match = re.search(pattern, text)
     

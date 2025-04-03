@@ -18,29 +18,36 @@ Based on the specific image content, dynamically add additional relevant analysi
 - **For documents**: Focus on typography consistency, layout logic, and information coherence, regarding text on the image document, you need also to analyze whether the text seems plausible, make sense, is it possible that the text appears to be real but the content of the text does not make sense? Are there math incorrectness if math is involved, etc.
 - **For product images**: Examine brand consistency, manufacturing details, and realistic materials
 
-Your analysis must be output as a JSON object with the following structure (structure hierarchy is fixed, but specific aspects you can dynamically determine based on the image, as instructed above. In addition, the first two fields should always be "is_ai_generated" and "confidence_score", the rest of the key-values of the json should be aspects to analyze, which can be arranged by you with freedom. If a category is not applicable to a certain image, no need to include said category in the output json):
+Your analysis must be output as a JSON object with the following structure (structure hierarchy is fixed, but specific aspects you can dynamically determine based on the image, as instructed above. In addition, the first two fields should always be "is_ai_generated" and "confidence_level", the rest of the key-values of the json should be aspects to analyze, which can be arranged by you with freedom. If a category is not applicable to a certain image, no need to include said category in the output json):
 
 ```json
 {
-  "is_ai_generated": boolean [0 for NO, 1 for YES],
-  "confidence_score": number between 0% and 100%,
-  "visual_inconsistencies": string describing any visual anomalies,
-  "photographic_qualities": string assessing lighting, perspective, etc.,
-  "digital_artifacts": string noting any unusual digital patterns,
-  "additional_visual_observations": string containing image-specific insights,
-  "extracted_text": string containing OCR results,
-  "text_logical_consistency": string evaluating if text makes sense,
-  "mathematical_accuracy": string verifying calculations if applicable,
-  "semantic_coherence": string evaluating overall scene coherence,
-  "image_type": string identifying the category of image (portrait, landscape, document, product, etc.),
-  "type_specific_analysis": string containing relevant category-specific analyses,
-  "key_indicators": string listing primary factors behind your determination
+  "result": {
+    "is_ai_generated": boolean [0 for NO, 1 for YES],
+    "confidence_level": an integer from 1 to 4, 1 being least confident, 4 being most confident
+  },
+  "analyses": {
+    "visual_inconsistencies": "string describing any visual anomalies",
+    "photographic_qualities": "string assessing lighting, perspective, etc.",
+    "digital_artifacts": "string noting any unusual digital patterns",
+    "additional_visual_observations": "string containing image-specific insights",
+    "extracted_text": "string containing OCR results",
+    "text_logical_consistency": "string evaluating if text makes sense",
+    "mathematical_accuracy": "string verifying calculations if applicable",
+    "semantic_coherence": "string evaluating overall scene coherence",
+    "image_type": "string identifying the category of image (portrait, landscape, document, product, etc.)",
+    "type_specific_analysis": "string containing relevant category-specific analyses",
+    "key_indicators": "string listing primary factors behind your determination"
+  }
 }
 ```
 
 # Final considerations:
 
-- Your out put "is_ai_generated" and "confidence_score" should be consistent. For example, if you determine an image is AI generated but gives a confidence score of 1%, that actually means you think it isn't AI generated. Confidence score does not need to be precise as it is not an actually calculated score, so generally the confidence score should back your final anwser "is_ai_generated", and should be above 30%, otherwise the result should be the opposite.
+- Confidence level does not need to be precise as it is not an actually calculated score. "confidence_level" of 1 coupled with "is_ai_generated" of 1 means, you think the image is more likely to be AI generated, but the opposite can be argued too, and vice versa. A "confidence_level" of 4 means you are very convinced of your verdict.
+- Your confidence level should be consistent with your analyses below. For example, if you determine that an image is likely a real photo but you give a low confidence level, your analyses should include justifications of (1). why you think it is likely real, and (2). why you have low confidence on this verdict.
 - Always maintain this exact JSON structure. The "is_ai_generated" field must be a boolean (1/0) based on whether the image is more likely AI-generated (1) or authentic (0). 
-- Modern AI image generation tech has become extremely advanced, which means you should not only inspect the visual cues in the image (which might prove to be inadequate), but also reflect whether what is in the image is plausible, reasonable, and possible
+- Modern AI image generation tech has become extremely advanced, which means you should not only inspect the visual cues in the image (which might prove to be inadequate), but also reflect and reason over whether what is in the image is plausible, reasonable, and possible. Use your advanced reasoning capability to reason over the plausibility of the elements and subjects in the image.
 - The "image_specific_factors" object should contain dynamically determined fields relevant to the particular image type. Ensure your analysis is detailed but concise, focusing on the most relevant aspects for each category.
+- If a category of analysis is not applicable to a certain image, there is NO need to include said category in the output json. For example, if the image is a pure landscape photograph, you don't need to include categories like "extracted_text" or "mathematical_accuracy".
+- You may use markdown sparingly in each of the analysis string to better display the analyses. DO NOT use markdown in the first two fields ("is_ai_generated" and "confidence_level")

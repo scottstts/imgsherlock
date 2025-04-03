@@ -2,15 +2,27 @@
  * Application configuration based on environment
  */
 
-// Default environment is development
-const ENV = import.meta.env.VITE_ENV || 'development';
+// Dynamically determine environment based on hostname
+const determineEnvironment = () => {
+  const hostname = window.location.hostname;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'development';
+  } else if (hostname === 'imgsherlock.xyz' || hostname.endsWith('.imgsherlock.xyz')) {
+    return 'production';
+  }
+  
+  // Default fallback
+  return 'development';
+};
+
+const ENV = determineEnvironment();
 
 const config = {
   // API URL for each environment
   apiUrl: {
     development: 'http://localhost:8000/api',
     test: 'http://localhost:8000/api',
-    production: '/api', // Relative URL for production (assumes API is on same domain)
+    production: 'https://imgsherlock.xyz/api', // Relative URL for production (assumes API is on same domain)
   },
   
   // Feature flags

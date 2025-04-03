@@ -32,7 +32,8 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
     onDrop,
     onDropRejected,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/png': ['.png']
     },
     maxFiles: 1,
     multiple: false,
@@ -56,7 +57,7 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
             <div className="upload-icon">📷</div>
             <p>Drag & drop an image here, or click to select</p>
             <p className="upload-hint">
-              Supported formats: JPG, PNG, GIF, WebP (Max {config.maxUploadSizeMB}MB)
+              Supported formats: JPG, JPEG, PNG (Max {config.maxUploadSizeMB}MB)
             </p>
           </div>
         )}

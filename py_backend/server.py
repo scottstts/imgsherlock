@@ -22,7 +22,7 @@ app = FastAPI(title="ImgSherlock API", description="API for detecting AI-generat
 # Add CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Frontend dev server address
+    allow_origins=["http://localhost:5173", "https://imgsherlock.xyz"],  # Frontend dev server address
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,11 +51,11 @@ async def detect_image(image: UploadFile = File(...)):
     Process an uploaded image and return detection results
     """
     # Validate file type
-    valid_mime_types = ["image/jpeg", "image/png", "image/gif", "image/webp"]
+    valid_mime_types = ["image/jpeg", "image/png"]
     if image.content_type not in valid_mime_types:
         raise HTTPException(
             status_code=400, 
-            detail="Invalid file type. Please upload a JPG, PNG, GIF, or WebP image."
+            detail="Invalid file type. Please upload a JPG, JPEG, or PNG image."
         )
     
     # Create a temporary file to store the uploaded image

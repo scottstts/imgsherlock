@@ -2,6 +2,7 @@ import './ResultDisplay.css';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
   const [expandedKeys, setExpandedKeys] = useState({});
@@ -28,15 +29,23 @@ const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
     return null;
   }
   
-  // Parse result from the backend
-  // The first key is always is_ai_generated, second is always confidence_score
-  const isAiGenerated = result.is_ai_generated === 1;
-  const confidenceScore = result.confidence_score;
+  // Parse result from the backend based on new JSON structure
+  const isAiGenerated = result.result?.is_ai_generated === 1;
   
-  // Get the rest of the aspect keys (excluding is_ai_generated and confidence_score)
-  const aspectKeys = Object.keys(result).filter(
-    key => key !== 'is_ai_generated' && key !== 'confidence_score'
-  );
+  // Get confidence level from the new structure
+  let confidenceLevel;
+  try {
+    confidenceLevel = parseInt(result.result?.confidence_level);
+    // Make sure it's within valid range
+    if (isNaN(confidenceLevel) || confidenceLevel < 1 || confidenceLevel > 4) {
+      confidenceLevel = isAiGenerated ? 3 : 1; // Default values based on AI generated status
+    }
+  } catch (e) {
+    confidenceLevel = isAiGenerated ? 3 : 1; // Default values if parsing fails
+  }
+  
+  // Get analysis aspects from the analyses object
+  const aspectKeys = result.analyses ? Object.keys(result.analyses) : [];
   
   const toggleAspect = (key) => {
     setExpandedKeys(prev => ({
@@ -45,13 +54,28 @@ const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
     }));
   };
   
-  // Calculate color based on confidence
+  // Get confidence level text
+  const getConfidenceLevelText = (level) => {
+    switch(level) {
+      case 1: return 'Low';
+      case 2: return 'Medium';
+      case 3: return 'High';
+      case 4: return 'Very High';
+      default: return 'Unknown';
+    }
+  };
+
+  // Calculate color based on confidence level
   const getConfidenceColorClass = () => {
     if (isAiGenerated) {
-      return confidenceScore > 80 ? 'high-confidence' : 'medium-confidence';
+      return confidenceLevel >= 3 ? 'high-confidence' : 'medium-confidence';
     }
     return 'low-confidence';
   };
+
+  // For debugging
+  console.log('Confidence level from backend:', result.result?.confidence_level);
+  console.log('Parsed confidence level:', confidenceLevel);
 
   return (
     <div className="result-container">
@@ -63,13 +87,15 @@ const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
         
         <div className="confidence-meter">
           <div className="confidence-label">Confidence:</div>
-          <div className="confidence-bar-container">
-            <div 
-              className={`confidence-bar ${getConfidenceColorClass()}`} 
-              style={{ width: `${confidenceScore}%` }}
-            ></div>
+          <div className="confidence-tier-container">
+            {[1, 2, 3, 4].map((tier) => (
+              <div 
+                key={tier}
+                className={`confidence-tier ${tier <= confidenceLevel ? getConfidenceColorClass() : ''}`} 
+              ></div>
+            ))}
           </div>
-          <div className="confidence-percentage">{Math.round(confidenceScore)}%</div>
+          <div className="confidence-level-text">{getConfidenceLevelText(confidenceLevel)}</div>
         </div>
         
         <div className="analysis-aspects">
@@ -85,8 +111,8 @@ const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
                   <span className="toggle-icon">{expandedKeys[key] ? '−' : '+'}</span>
                 </div>
                 {expandedKeys[key] && (
-                  <div className="aspect-content">
-                    <p>{result[key]}</p>
+                  <div className="aspect-content markdown-content">
+                    <ReactMarkdown>{result.analyses[key]}</ReactMarkdown>
                   </div>
                 )}
               </li>

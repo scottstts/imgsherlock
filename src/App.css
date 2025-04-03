@@ -190,6 +190,10 @@ body {
   margin-bottom: var(--space-xl);
   align-self: center;
   width: 100%;
+  min-width: 680px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -289,7 +293,7 @@ body {
   background-color: rgba(255, 183, 77, 0.15);
   border-radius: var(--radius-md);
   border-left: 4px solid var(--warning-color);
-  max-width: 95%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
