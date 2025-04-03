@@ -80,4 +80,31 @@
 .error-dismiss-button:hover {
   opacity: 1;
   transform: scale(1.1);
+}
+
+/* --- Mobile Responsive Styles --- */
+@media (max-width: 768px) {
+  .error-container {
+    padding: var(--space-sm);
+    margin: var(--space-sm) auto;
+  }
+
+  .error-icon {
+    font-size: var(--text-lg);
+    margin-right: var(--space-sm);
+  }
+
+  .error-title {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .error-message {
+    font-size: var(--text-xs);
+  }
+
+  .error-dismiss-button {
+    font-size: var(--text-lg);
+    margin-left: var(--space-sm);
+  }
 } 

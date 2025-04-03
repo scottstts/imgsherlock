@@ -399,3 +399,100 @@ body {
   display: block;
   margin-top: -2px; /* Optical adjustment */
 }
+
+/* --- Mobile Responsive Styles --- */
+@media (max-width: 768px) {
+  .app-container {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .app-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .logo-title {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-md) var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  .logo-container {
+    padding: var(--space-sm);
+  }
+
+  .app-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .title-container {
+    align-items: center;
+  }
+
+  .app-header h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .app-subtitle {
+    font-size: var(--text-lg);
+  }
+
+  .app-main {
+    min-width: unset;
+    max-width: 100%;
+    padding: var(--space-lg);
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .info-section h2 {
+    font-size: var(--text-xl);
+  }
+
+  .info-section p {
+    font-size: var(--text-sm);
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .detect-button, .clear-button {
+    width: 100%;
+  }
+
+  .disclaimer {
+    padding: var(--space-sm);
+  }
+
+  .disclaimer p {
+    font-size: var(--text-xs);
+  }
+
+  .scroll-to-top {
+    width: 48px;
+    height: 48px;
+    bottom: 20px;
+    right: 20px;
+    border-width: 3px;
+  }
+
+  .arrow-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: var(--text-2xl);
+  }
+  .app-subtitle {
+    font-size: var(--text-md);
+  }
+  .app-main {
+    padding: var(--space-md);
+  }
+}

@@ -74,8 +74,8 @@ const ResultDisplay = ({ result, loading, error, onErrorDismiss }) => {
   };
 
   // For debugging
-  console.log('Confidence level from backend:', result.result?.confidence_level);
-  console.log('Parsed confidence level:', confidenceLevel);
+  // console.log('Confidence level from backend:', result.result?.confidence_level);
+  // console.log('Parsed confidence level:', confidenceLevel);
 
   return (
     <div className="result-container">

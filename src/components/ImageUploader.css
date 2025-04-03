@@ -142,4 +142,49 @@
 
 .preview-container:hover .overlay {
   opacity: 1;
+}
+
+/* --- Mobile Responsive Styles --- */
+@media (max-width: 768px) {
+  .dropzone {
+    padding: var(--space-lg);
+    min-height: 180px;
+  }
+
+  .upload-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .upload-placeholder p {
+    font-size: var(--text-sm);
+  }
+
+  .upload-hint {
+    font-size: var(--text-xs);
+  }
+
+  .dropzone.has-preview {
+    min-height: 250px;
+  }
+
+  .image-preview {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropzone {
+    padding: var(--space-md);
+    min-height: 150px;
+  }
+  .upload-icon {
+    font-size: 2.5rem;
+  }
+  .dropzone.has-preview {
+    min-height: 200px;
+  }
+  .image-preview {
+    max-height: 250px;
+  }
 } 

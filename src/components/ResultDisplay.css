@@ -433,4 +433,107 @@
   margin-bottom: var(--space-sm);
   font-style: italic;
   color: var(--text-dark);
+}
+
+/* --- Mobile Responsive Styles --- */
+@media (max-width: 768px) {
+  .result-card {
+    padding: var(--space-lg);
+  }
+
+  .result-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .result-badge {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-xs);
+  }
+
+  .confidence-meter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+  }
+
+  .confidence-label {
+    margin-right: 0;
+    margin-bottom: var(--space-xs);
+    min-width: auto;
+    font-size: var(--text-sm);
+  }
+
+  .confidence-tier-container {
+    width: 100%;
+    margin-right: 0;
+    justify-content: space-between;
+  }
+  
+  .confidence-tier {
+    flex-grow: 1; /* Allow tiers to fill space */
+    height: 12px;
+  }
+
+  .confidence-level-text {
+    font-size: var(--text-sm);
+    min-width: auto;
+    align-self: flex-end;
+  }
+
+  .details-section h3,
+  .analysis-aspects h3 {
+    font-size: var(--text-lg);
+  }
+
+  .details-section p,
+  .aspect-content {
+    font-size: var(--text-sm);
+  }
+
+  .aspect-header {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-sm);
+  }
+
+  .aspect-content {
+    padding: var(--space-sm);
+  }
+
+  .markdown-content h1 { font-size: var(--text-lg); }
+  .markdown-content h2 { font-size: var(--text-md); }
+  .markdown-content h3 { font-size: var(--text-sm); }
+  .markdown-content p, 
+  .markdown-content li { font-size: var(--text-sm); }
+}
+
+@media (max-width: 480px) {
+  .result-card {
+    padding: var(--space-md);
+  }
+
+  .result-title {
+    font-size: var(--text-lg);
+  }
+
+  .confidence-tier {
+    height: 10px;
+  }
+  
+  .details-section h3,
+  .analysis-aspects h3 {
+    font-size: var(--text-md);
+  }
+  
+  .aspect-header {
+    font-size: var(--text-xs);
+  }
+
+  .details-section p,
+  .aspect-content,
+  .markdown-content p, 
+  .markdown-content li { 
+    font-size: var(--text-xs); 
+  }
 } 

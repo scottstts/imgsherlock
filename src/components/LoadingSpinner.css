@@ -86,4 +86,12 @@
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Mobile Responsive Styles --- */
+@media (max-width: 768px) {
+  .spinner-message {
+    font-size: var(--text-xs);
+    max-width: 150px;
+  }
 } 
