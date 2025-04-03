@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import apiService from '../services/api';
-import config from '../config/env';
 import { validateImageFile } from '../utils/validation';
 
 /**
