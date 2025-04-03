@@ -17,6 +17,9 @@ from utils import extract_json_content
 # Create a ThreadPoolExecutor for I/O bound operations
 thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=10)
 
+# Define maximum upload size (10MB)
+MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB in bytes
+
 app = FastAPI(title="ImgSherlock API", description="API for detecting AI-generated images")
 
 # Add CORS middleware to allow requests from the frontend
@@ -58,10 +61,21 @@ async def detect_image(image: UploadFile = File(...)):
             detail="Invalid file type. Please upload a JPG, JPEG, or PNG image."
         )
     
+    # Check file size (read a small chunk first to avoid memory issues)
+    contents = await image.read(MAX_UPLOAD_SIZE + 1)  # Read a bit more to check if it exceeds
+    if len(contents) > MAX_UPLOAD_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File size exceeds the maximum allowed size of {MAX_UPLOAD_SIZE / (1024 * 1024)}MB"
+        )
+    
+    # Reset file position for later use
+    await image.seek(0)
+    
     # Create a temporary file to store the uploaded image
     with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(image.filename)[1]) as temp_file:
         # Copy the uploaded image to the temporary file
-        await run_in_threadpool(shutil.copyfileobj, image.file, temp_file)
+        temp_file.write(contents)  # Use the content we already read
         temp_file_path = temp_file.name
     
     try:

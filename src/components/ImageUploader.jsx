@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { validateImageFile, formatBytes } from '../utils/validation';
 import config from '../config/env';
@@ -6,8 +6,11 @@ import ErrorMessage from './ErrorMessage';
 import './ImageUploader.css';
 
 const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
+  const [sizeError, setSizeError] = useState(null);
+
   const onDrop = useCallback(
     (acceptedFiles) => {
+      setSizeError(null);
       if (acceptedFiles && acceptedFiles.length > 0) {
         onImageChange(acceptedFiles[0]);
       }
@@ -24,6 +27,11 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
       if (!validation.isValid) {
         // Pass null for the file (to clear any previous file) and let the error be handled by the parent
         onImageChange(null);
+        
+        // Check if this is a size error
+        if (file.size > config.maxUploadSizeMB * 1024 * 1024) {
+          setSizeError(`File size (${formatBytes(file.size)}) exceeds maximum allowed size (${config.maxUploadSizeMB}MB)`);
+        }
       }
     }
   }, [onImageChange]);
@@ -42,6 +50,12 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
 
   return (
     <div className="uploader-container">
+      {sizeError && (
+        <div className="size-error-banner">
+          <p>{sizeError}</p>
+          <button onClick={() => setSizeError(null)}>✕</button>
+        </div>
+      )}
       <div 
         {...getRootProps()} 
         className={`dropzone ${isDragActive ? 'active' : ''} ${isDragReject ? 'reject' : ''} ${preview ? 'has-preview' : ''}`}

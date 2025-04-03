@@ -7,6 +7,45 @@
   align-items: center;
 }
 
+.size-error-banner {
+  width: 100%;
+  background-color: rgba(255, 82, 82, 0.9);
+  color: white;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  animation: slideDown 0.3s ease-out;
+}
+
+.size-error-banner p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.size-error-banner button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0 0 var(--space-md);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .dropzone {
   display: flex;
   flex-direction: column;

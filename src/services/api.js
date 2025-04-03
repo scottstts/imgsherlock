@@ -36,6 +36,7 @@ apiClient.interceptors.response.use(
     if (process.env.NODE_ENV !== 'production') {
       console.error('API Error:', error);
     }
+    
     return Promise.reject(error);
   }
 );
@@ -64,7 +65,14 @@ const apiService = {
       });
       return response.data;
     } catch (error) {
+      // Log the error but preserve the original error object with status code
       console.error('Error checking image:', error);
+      
+      // Make sure we're preserving the response status for error handling upstream
+      if (error.response && error.response.status === 429) {
+        console.warn('Rate limit (429) reached for Gemini model');
+      }
+      
       throw error;
     }
   },

@@ -60,6 +60,11 @@ const useImageUpload = () => {
       const detectionResult = await apiService.checkImage(image);
       setResult(detectionResult);
     } catch (err) {
+      // Check specifically for 429 status code
+      if (err.response && err.response.status === 429) {
+        alert("Gemini 2.0 Pro Exp model has reached rate limit, try again next day.");
+      }
+      
       setError(err.response?.data?.message || err.message || 'An error occurred during detection');
       console.error('Error detecting image:', err);
     } finally {
