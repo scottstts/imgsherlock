@@ -25,7 +25,7 @@ app = FastAPI(title="ImgSherlock API", description="API for detecting AI-generat
 # Add CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://imgsherlock.xyz"],  # Frontend dev server address
+    allow_origins=["http://localhost:5173", "https://imgsherlock.scottsun.io"],  # Frontend dev server address
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

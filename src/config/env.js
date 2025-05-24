@@ -7,7 +7,7 @@ const determineEnvironment = () => {
   const hostname = window.location.hostname;
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     return 'development';
-  } else if (hostname === 'imgsherlock.xyz' || hostname.endsWith('.imgsherlock.xyz')) {
+  } else if (hostname === 'imgsherlock.scottsun.io' || hostname.endsWith('.imgsherlock.scottsun.io')) {
     return 'production';
   }
   
@@ -22,7 +22,7 @@ const config = {
   apiUrl: {
     development: 'http://localhost:8000/api',
     test: 'http://localhost:8000/api',
-    production: 'https://imgsherlock.xyz/api', // Relative URL for production (assumes API is on same domain)
+    production: 'https://imgsherlock.scottsun.io/api', // Relative URL for production (assumes API is on same domain)
   },
   
   // Feature flags
