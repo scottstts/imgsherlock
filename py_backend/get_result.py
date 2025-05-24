@@ -18,7 +18,7 @@ def generate(img_path):
         # Please ensure that the file is available in local system working direrctory or change the file path.
         client.files.upload(file=img_path),
     ]
-    model = "gemini-2.0-flash-thinking-exp-01-21"
+    model = "gemini-2.5-flash-preview-05-20"
     contents = [
         types.Content(
             role="user",
