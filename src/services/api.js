@@ -14,7 +14,7 @@ const apiClient = axios.create({
 // Add a request interceptor for logging in development
 apiClient.interceptors.request.use(
   (config) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.DEV) {
       console.log(`API Request: ${config.method.toUpperCase()} ${config.url}`);
     }
     return config;
@@ -27,13 +27,13 @@ apiClient.interceptors.request.use(
 // Add a response interceptor for logging in development
 apiClient.interceptors.response.use(
   (response) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.DEV) {
       console.log(`API Response: ${response.status} ${response.config.url}`);
     }
     return response;
   },
   (error) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.DEV) {
       console.error('API Error:', error);
     }
     

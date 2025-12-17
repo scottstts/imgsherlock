@@ -15,110 +15,106 @@ function App() {
     clearImage,
     clearError,
   } = useImageUpload()
-  
+
   const [showScrollButton, setShowScrollButton] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button when user scrolls down 300px
       setShowScrollButton(window.scrollY > 300)
     }
-    
+
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <div className="logo-title">
-          <div className="logo-container">
-            <img src="/logo.svg" alt="ImgSherlock Logo" className="app-logo" />
+    <div className="app">
+      <header className="header">
+        <div className="header-inner">
+          <div className="logo">
+            <img src="/logo.png" alt="" className="logo-img" />
+            <span className="logo-text">ImgSherlock</span>
           </div>
-          <div className="title-container">
-            <h1>ImgSherlock</h1>
-            <p className="app-subtitle">AI Image Detector</p>
-          </div>
+          <span className="header-tag">AI Detection</span>
         </div>
       </header>
 
-      <main className="app-main">
-        <section className="info-section">
-          <p>
-            Use multimodal LLM to detect AI-generated images.
-          </p>
-        </section>
-
-        <section className="upload-section">
-          <ImageUploader 
-            onImageChange={handleImageChange} 
-            preview={preview}
-            error={error}
-            onErrorDismiss={clearError}
-          />
-          
-          <div className="action-buttons">
-            {!result && (
-              <button 
-                className="detect-button" 
-                onClick={detectImage}
-                disabled={!preview || loading}
-              >
-                {loading ? 'Analyzing...' : 'Analyze Image'}
-              </button>
-            )}
-            
-            {preview && (
-              <button 
-                className="clear-button" 
-                onClick={clearImage}
-                disabled={loading}
-              >
-                Clear
-              </button>
-            )}
-          </div>
-        </section>
-
-        {(loading || result) && (
-          <ResultDisplay 
-            result={result} 
-            loading={loading} 
-            error={error}
-            onErrorDismiss={clearError}
-          />
-        )}
-
-        {result && (
-          <div className="disclaimer">
-            <p>
-              <strong>Note:</strong> This detection is based on AI analysis and may not be 100% accurate.
-              The technology for creating and detecting AI-generated content is constantly evolving.
+      <main className="main">
+        <div className="main-inner">
+          <div className="hero">
+            <h1 className="hero-title">
+              Detect <span>AI-generated</span> images
+            </h1>
+            <p className="hero-desc">
+              Detecting AI images requires more than finding artifacts, you need reasoning on the image content too.
             </p>
           </div>
-        )}
+
+          <div className="upload-zone">
+            <ImageUploader
+              onImageChange={handleImageChange}
+              preview={preview}
+              error={error}
+              onErrorDismiss={clearError}
+            />
+
+            <div className="actions">
+              {!result && (
+                <button
+                  className="btn btn-primary"
+                  onClick={detectImage}
+                  disabled={!preview || loading}
+                >
+                  {loading ? 'Analyzing...' : 'Analyze Image'}
+                </button>
+              )}
+
+              {preview && (
+                <button
+                  className="btn btn-secondary"
+                  onClick={clearImage}
+                  disabled={loading}
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+
+          {(loading || result) && (
+            <div className="results">
+              <ResultDisplay
+                result={result}
+                loading={loading}
+                error={error}
+                onErrorDismiss={clearError}
+              />
+            </div>
+          )}
+
+          {result && (
+            <div className="disclaimer">
+              <strong>Note:</strong> This detection is based on AI analysis and may not be 100% accurate. The technology for creating and detecting AI-generated content is constantly evolving.
+            </div>
+          )}
+        </div>
       </main>
 
-      <footer className="app-footer">
-        <p>Powered by Google Gemini</p>
+      <footer className="footer">
+        Powered by Google Gemini
       </footer>
 
-      {showScrollButton && (
-        <button 
-          className="scroll-to-top scroll-button-appear"
-          onClick={scrollToTop}
-          aria-label="Scroll to top"
-        >
-          <span className="arrow-icon">↑</span>
-        </button>
-      )}
+      <button
+        className={`scroll-top ${showScrollButton ? 'visible' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        ↑
+      </button>
     </div>
   )
 }

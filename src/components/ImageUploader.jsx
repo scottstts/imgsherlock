@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { validateImageFile, formatBytes } from '../utils/validation';
 import config from '../config/env';
-import ErrorMessage from './ErrorMessage';
-import './ImageUploader.css';
 
 const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
   const [sizeError, setSizeError] = useState(null);
@@ -20,15 +18,12 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
 
   const onDropRejected = useCallback((rejectedFiles) => {
     if (rejectedFiles && rejectedFiles.length > 0) {
-      // Manually validate the file to provide a more specific error message
       const file = rejectedFiles[0].file;
       const validation = validateImageFile(file);
-      
+
       if (!validation.isValid) {
-        // Pass null for the file (to clear any previous file) and let the error be handled by the parent
         onImageChange(null);
-        
-        // Check if this is a size error
+
         if (file.size > config.maxUploadSizeMB * 1024 * 1024) {
           setSizeError(`File size (${formatBytes(file.size)}) exceeds maximum allowed size (${config.maxUploadSizeMB}MB)`);
         }
@@ -49,42 +44,51 @@ const ImageUploader = ({ onImageChange, preview, error, onErrorDismiss }) => {
   });
 
   return (
-    <div className="uploader-container">
+    <>
       {sizeError && (
-        <div className="size-error-banner">
-          <p>{sizeError}</p>
-          <button onClick={() => setSizeError(null)}>✕</button>
+        <div className="error-banner">
+          <div className="error-content">
+            <div className="error-title">File too large</div>
+            <div className="error-message">{sizeError}</div>
+          </div>
+          <button className="error-close" onClick={() => setSizeError(null)}>×</button>
         </div>
       )}
-      <div 
-        {...getRootProps()} 
+
+      {error && !preview && (
+        <div className="error-banner">
+          <div className="error-content">
+            <div className="error-title">Error</div>
+            <div className="error-message">{error}</div>
+          </div>
+          <button className="error-close" onClick={onErrorDismiss}>×</button>
+        </div>
+      )}
+
+      <div
+        {...getRootProps()}
         className={`dropzone ${isDragActive ? 'active' : ''} ${isDragReject ? 'reject' : ''} ${preview ? 'has-preview' : ''}`}
       >
         <input {...getInputProps()} />
         {preview ? (
-          <div className="preview-container">
-            <img src={preview} alt="Preview" className="image-preview" />
-            <div className="overlay">Click or drag to replace</div>
+          <div className="preview-wrap">
+            <img src={preview} alt="Preview" className="preview-img" />
+            <div className="preview-overlay">Click or drag to replace</div>
           </div>
         ) : (
-          <div className="upload-placeholder">
-            <div className="upload-icon">📷</div>
-            <p>Drag & drop an image here, or click to select</p>
-            <p className="upload-hint">
-              Supported formats: JPG, JPEG, PNG (Max {config.maxUploadSizeMB}MB)
-            </p>
-          </div>
+          <>
+            <div className="dropzone-icon">↑</div>
+            <div className="dropzone-text">
+              <p>Drop image here or click to upload</p>
+              <p className="dropzone-hint">
+                JPG, PNG up to {config.maxUploadSizeMB}MB
+              </p>
+            </div>
+          </>
         )}
       </div>
-      
-      {error && !preview && (
-        <ErrorMessage 
-          message={error} 
-          onDismiss={onErrorDismiss}
-        />
-      )}
-    </div>
+    </>
   );
 };
 
-export default ImageUploader; 
+export default ImageUploader;
