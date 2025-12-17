@@ -61,7 +61,7 @@ const useImageUpload = () => {
     } catch (err) {
       // Check specifically for 429 status code
       if (err.response && err.response.status === 429) {
-        alert("Gemini 2.0 Pro Exp model has reached rate limit, try again next day.");
+        alert("Gemini model has reached rate limit, try again next day.");
       }
       
       setError(err.response?.data?.message || err.message || 'An error occurred during detection');
