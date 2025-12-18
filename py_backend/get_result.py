@@ -33,7 +33,7 @@ def generate(img_path):
     ]
     generate_content_config = types.GenerateContentConfig(
         response_mime_type="text/plain",
-        temperature=0.3
+        temperature=1.0
     )
 
     response = client.models.generate_content(
